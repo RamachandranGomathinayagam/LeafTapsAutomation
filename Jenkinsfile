@@ -1,12 +1,20 @@
 pipeline{
-agent any
-stages
-{
-stage('build')
-{
-  step{
-echo 'Pull the code from git'
-  }
-}
-}
-}
+    agent any
+    stages{
+        stage('Code Build'){
+            steps{
+            echo 'Build is complete'
+            }
+        }
+        stage('Test'){
+            steps{
+            echo 'Testing is complete'
+            }
+        }
+        stage('Deploy'){
+            steps{
+            echo 'Deployment is complete'
+            }   
+        }
+    }
+} 
