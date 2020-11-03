@@ -1,20 +1,56 @@
-pipeline{
-    agent any
-    stages{
-        stage('Code Build'){
-            steps{
-            echo 'Build is complete'
-            }
-        }
-        stage('Test'){
-            steps{
-            echo 'Testing is complete'
-            }
-        }
-        stage('Deploy'){
-            steps{
-            echo 'Deployment is complete'
-            }   
-        }
+pipeline {
+  agent any
+  stages {
+    stage('Devlopment') {
+      steps {
+        echo 'Pull the code from the git'
+        echo 'Create a build using Git Repo'
+      }
     }
-} 
+
+    stage('Smoke Test') {
+      steps {
+        echo 'Run 2 Chrome Test'
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        echo 'Stop the running server'
+        echo 'Move the build to QA'
+        echo 'Start the server'
+        echo 'Notify to QA'
+      }
+    }
+
+    stage('Integration test') {
+      parallel {
+        stage('Integration test') {
+          steps {
+            echo 'Sanity UI Test'
+          }
+        }
+
+        stage('API test') {
+          steps {
+            echo 'Run API test'
+          }
+        }
+
+        stage('Performance Test') {
+          steps {
+            echo 'Run Jmeter test'
+          }
+        }
+
+      }
+    }
+
+    stage('Certify') {
+      steps {
+        echo 'QA certify'
+      }
+    }
+
+  }
+}
