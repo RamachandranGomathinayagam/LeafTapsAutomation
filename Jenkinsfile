@@ -28,6 +28,8 @@ pipeline {
         stage('Integration test') {
           steps {
             echo 'Sanity UI Test'
+            git(url: 'https://github.com/RamachandranGomathinayagam/LeafTapsAutomation', branch: 'master', poll: true)
+            bat 'mvn test'
           }
         }
 
